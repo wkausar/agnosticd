@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    openshift.io/description: "ocp4-workload-summit2020-kogito-lab"
+    openshift.io/display-name: ""
+  name: "{{ _namespace }}"
+spec:
+  finalizers:
+    - kubernetes

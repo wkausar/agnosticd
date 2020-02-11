@@ -1,0 +1,8 @@
+---
+become_override: False
+ocp_username: system:admin
+silent: False
+
+tmp_dir: /tmp/ocp4-workload-summit2020-kogito-lab
+
+_ocp_version: 4.3.0

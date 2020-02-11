@@ -1,0 +1,9 @@
+---
+- name: set namespace
+  set_fact:
+    _namespace: "{{ namespace_prefix }}{{ user_num }}"
+
+- name: Create namespace for {{ _namespace }}
+  k8s:
+    state: present
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace.j2' ) | from_yaml }}"
