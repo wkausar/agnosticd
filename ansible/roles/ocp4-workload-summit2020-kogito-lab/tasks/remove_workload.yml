@@ -1,6 +1,10 @@
 ---
 # Implement your Workload removal tasks here
-
+- name: Delete projects loop
+  include_tasks: remove_workload_per_project.yml
+  loop: "{{ range(user_count_start|int, user_count_end|int)|list }}"
+  loop_control:
+    loop_var: user_num
 
 # Leave this as the last task in the playbook.
 - name: remove_workload tasks complete
