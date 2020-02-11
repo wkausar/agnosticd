@@ -1,0 +1,36 @@
+---
+
+- name: delete kafka crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/040-Crd-kafka.yaml' ) | from_yaml }}"
+
+- name: delete kafkaconnect crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/041-Crd-kafkaconnect.yaml' ) | from_yaml }}"
+
+- name: delete kafkaconnects2i crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/042-Crd-kafkaconnects2i.yaml' ) | from_yaml }}"
+
+- name: delete kafkatopic crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/043-Crd-kafkatopic.yaml' ) | from_yaml }}"
+
+- name: delete kafkauser crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/044-Crd-kafkauser.yaml' ) | from_yaml }}"
+
+- name: delete kafkamirrormaker crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/045-Crd-kafkamirrormaker.yaml' ) | from_yaml }}"
+
+- name: delete kafkabridge crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/046-Crd-kafkabridge.yaml' ) | from_yaml }}"

@@ -1,4 +1,8 @@
 ---
+
+- name: Delete Strimzi per cluster
+  include_tasks: remove_workload_per_cluster_strimzi.yml
+
 # Implement your Workload removal tasks here
 - name: Delete projects loop
   include_tasks: remove_workload_per_project.yml

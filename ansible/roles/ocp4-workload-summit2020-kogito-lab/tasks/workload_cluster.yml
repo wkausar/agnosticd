@@ -1,1 +1,4 @@
 ---
+
+- name: Strimzi for cluster
+  include_tasks: workload_per_cluster_strimzi.yml

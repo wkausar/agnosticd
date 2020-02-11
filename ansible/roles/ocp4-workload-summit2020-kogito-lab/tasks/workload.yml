@@ -4,8 +4,8 @@
   debug:
     msg: "Setting up workload for {{ range(user_count_start|int, user_count_end|int)|list }} users"
 
-# - name: Run tasks per cluster
-#   include_tasks: workload_cluster.yml
+- name: run tasks per cluster
+  include_tasks: workload_cluster.yml
 
 - name: run tasks per project
   include_tasks: workload_project.yml
