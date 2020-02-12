@@ -1,0 +1,13 @@
+---
+
+- name: "create Kogito operator service account for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/operator/kogito-operator-serviceaccount.yml' ) | from_yaml }}"
+
+- name: "create Kogito service-viewer service account for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/operator/kogito-service-viewer-serviceaccount.yml' ) | from_yaml }}"
