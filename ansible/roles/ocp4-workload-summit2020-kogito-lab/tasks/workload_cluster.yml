@@ -2,3 +2,7 @@
 
 - name: Strimzi for cluster
   include_tasks: workload_per_cluster_strimzi.yml
+
+- name: Infinispan workload for cluster
+  include_tasks: workload_per_cluster_infinispan.yml
+  

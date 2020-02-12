@@ -1,0 +1,6 @@
+---
+
+- name: delete Infinispan crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/infinispan/infinispan-crd.yml' ) | from_yaml }}"

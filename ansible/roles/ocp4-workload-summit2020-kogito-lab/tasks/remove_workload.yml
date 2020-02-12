@@ -7,6 +7,9 @@
   loop_control:
     loop_var: user_num
 
+- name: delete Infinispan per cluster
+  include_tasks: remove_workload_per_cluster_infinispan.yml
+
 - name: delete Strimzi per cluster
   include_tasks: remove_workload_per_cluster_strimzi.yml
 
