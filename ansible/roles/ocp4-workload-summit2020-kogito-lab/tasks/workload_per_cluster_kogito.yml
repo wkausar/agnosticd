@@ -41,3 +41,24 @@
     state: present
     namespace: openshift
     definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-jobs-service.yml' ) | from_yaml }}"
+
+- name: create kogito-app crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-app.yml' ) | from_yaml }}"
+
+- name: create kogito-data-index crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-data-index.yml' ) | from_yaml }}"
+
+- name: create kogito-infra crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-infra.yml' ) | from_yaml }}"
+
+- name: create kogito-jobs-service crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-jobs-service.yml' ) | from_yaml }}"
+ 

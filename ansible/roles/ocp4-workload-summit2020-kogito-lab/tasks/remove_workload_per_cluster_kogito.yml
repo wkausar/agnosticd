@@ -1,5 +1,25 @@
 ---
 
+- name: delete kogito-app crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-app.yml' ) | from_yaml }}"
+
+- name: delete kogito-data-index crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-data-index.yml' ) | from_yaml }}"
+
+- name: delete kogito-infra crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-infra.yml' ) | from_yaml }}"
+
+- name: delete kogito-jobs-service crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/crd/kogito-jobs-service.yml' ) | from_yaml }}"
+
 - name: delete kogito kogito-quarkus-ubi8 imagestream
   k8s:
     state: absent
