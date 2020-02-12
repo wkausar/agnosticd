@@ -35,3 +35,9 @@
     state: present
     namespace: "{{ _namespace }}"    
     definition: "{{ lookup('file', role_path ~ '/files/kogito/operator/kogito-service-viewer-rolebinding.yml' ) | from_yaml }}"
+
+- name: "create Kogito operator deployment for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/operator/kogito-operator-deployment.yml' ) | from_yaml }}"
