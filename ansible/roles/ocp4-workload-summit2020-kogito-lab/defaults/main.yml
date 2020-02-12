@@ -6,3 +6,8 @@ silent: False
 tmp_dir: /tmp/ocp4-workload-summit2020-kogito-lab
 
 _ocp_version: 4.3.0
+
+strimzi_operator_resources_cpu_limit: 1000m
+strimzi_operator_resources_memory_limit: 256Mi
+strimzi_operator_resources_cpu_request: 200m
+strimzi_operator_resources_memory_request: 256Mi
