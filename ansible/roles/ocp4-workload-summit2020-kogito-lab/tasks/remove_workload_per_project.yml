@@ -3,6 +3,9 @@
   set_fact:
     _namespace: "{{ namespace_prefix }}{{ user_num }}"
 
+- name: "remove Strimzi workload for user user{{ user_num }}"
+  include_tasks: remove_workload_per_project_strimzi.yml
+
 - name: delete {{ _namespace }} project
   k8s:
     state: absent
