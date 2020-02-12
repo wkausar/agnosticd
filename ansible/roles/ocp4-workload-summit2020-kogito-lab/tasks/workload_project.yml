@@ -16,3 +16,6 @@
 
 - name: "Strimzi workload for user user{{ user_num }}"
   include_tasks: workload_per_project_strimzi.yml
+
+- name: "Infinispan workload for user user{{ user_num }}"
+  include_tasks: workload_per_project_infinispan.yml
