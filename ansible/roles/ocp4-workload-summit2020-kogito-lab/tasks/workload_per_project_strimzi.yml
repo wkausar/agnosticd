@@ -5,4 +5,31 @@
     state: present
     namespace: "{{ _namespace }}"    
     definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/010-ServiceAccount-strimzi-cluster-operator.yaml' ) | from_yaml }}"
-  
+
+- name: "create Strimzi cluster operator rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-operator/020-RoleBinding-strimzi-cluster-operator.yaml' ) | from_yaml }}"
+
+- name: "create Strimzi cluster operator clusterrolebinding for user user{{ user_num }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-operator/021-ClusterRoleBinding-strimzi-cluster-operator.yaml' ) | from_yaml }}"
+
+- name: "create Strimzi kafka broker clusterrolebinding for user user{{ user_num }}"
+  k8s:
+    state: present
+    definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-operator/030-ClusterRoleBinding-strimzi-cluster-operator-kafka-broker-delegation.yaml' ) | from_yaml }}"
+
+- name: "create Strimzi entity operator rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-operator/031-RoleBinding-strimzi-cluster-operator-entity-operator-delegation.yaml' ) | from_yaml }}"
+
+- name: "create Strimzi topic operator rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-operator/032-RoleBinding-strimzi-cluster-operator-topic-operator-delegation.yaml' ) | from_yaml }}"
