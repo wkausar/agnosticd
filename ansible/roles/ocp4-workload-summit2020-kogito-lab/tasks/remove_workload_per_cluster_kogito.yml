@@ -1,0 +1,43 @@
+---
+
+- name: delete kogito kogito-quarkus-ubi8 imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-quarkus-ubi8.yml' ) | from_yaml }}"
+
+- name: delete kogito kogito-quarkus-ubi8-s2i imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-quarkus-ubi8-s2i.yml' ) | from_yaml }}"
+
+- name: delete kogito kogito-quarkus-jvm-ubi8 imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-quarkus-jvm-ubi8.yml' ) | from_yaml }}"
+
+- name: delete kogito kogito-springboot-ubi8 imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-springboot-ubi8.yml' ) | from_yaml }}"
+
+- name: delete kogito kogito-springboot-ubi8-s2i imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-springboot-ubi8-s2i.yml' ) | from_yaml }}"
+
+- name: delete kogito kogito-data-index imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-data-index.yml' ) | from_yaml }}"
+
+- name: delete kogito kogito-jobs-service imagestream
+  k8s:
+    state: absent
+    namespace: openshift
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/imagestreams/kogito-jobs-service.yml' ) | from_yaml }}"

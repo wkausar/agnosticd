@@ -1,16 +1,19 @@
 ---
 
 # Implement your Workload removal tasks here
-- name: delete projects loop
+- name: remove projects loop
   include_tasks: remove_workload_per_project.yml
   loop: "{{ range(user_count_start|int, user_count_end|int)|list }}"
   loop_control:
     loop_var: user_num
 
-- name: delete Infinispan per cluster
+- name: remove Kogito per cluster
+  include_tasks: remove_workload_per_cluster_kogito.yml
+
+- name: remove Infinispan per cluster
   include_tasks: remove_workload_per_cluster_infinispan.yml
 
-- name: delete Strimzi per cluster
+- name: remove Strimzi per cluster
   include_tasks: remove_workload_per_cluster_strimzi.yml
 
 # Leave this as the last task in the playbook.

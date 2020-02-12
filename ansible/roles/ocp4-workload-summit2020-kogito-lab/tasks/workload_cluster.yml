@@ -5,4 +5,6 @@
 
 - name: Infinispan workload for cluster
   include_tasks: workload_per_cluster_infinispan.yml
-  
+
+- name: Kogito workload for cluster
+  include_tasks: workload_per_cluster_kogito.yml
