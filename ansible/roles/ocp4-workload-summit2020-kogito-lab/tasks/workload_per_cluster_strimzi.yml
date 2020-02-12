@@ -34,3 +34,28 @@
   k8s:
     state: present
     definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/046-Crd-kafkabridge.yaml' ) | from_yaml }}"
+
+- name: create strimzi operator namespaced clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/020-ClusterRole-strimzi-cluster-operator-role.yaml' ) | from_yaml }}"
+
+- name: create strimzi operator global clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/021-ClusterRole-strimzi-cluster-operator-role.yaml' ) | from_yaml }}"
+
+- name: create strimzi kafka broker clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/030-ClusterRole-strimzi-kafka-broker.yaml' ) | from_yaml }}"
+
+- name: create strimzi entity operator clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/031-ClusterRole-strimzi-entity-operator.yaml' ) | from_yaml }}"
+
+- name: create strimzi topic operator clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/032-ClusterRole-strimzi-topic-operator.yaml' ) | from_yaml }}"

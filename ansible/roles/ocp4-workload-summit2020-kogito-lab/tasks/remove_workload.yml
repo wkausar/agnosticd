@@ -1,14 +1,14 @@
 ---
 
-- name: Delete Strimzi per cluster
-  include_tasks: remove_workload_per_cluster_strimzi.yml
-
 # Implement your Workload removal tasks here
-- name: Delete projects loop
+- name: delete projects loop
   include_tasks: remove_workload_per_project.yml
   loop: "{{ range(user_count_start|int, user_count_end|int)|list }}"
   loop_control:
     loop_var: user_num
+
+- name: delete Strimzi per cluster
+  include_tasks: remove_workload_per_cluster_strimzi.yml
 
 # Leave this as the last task in the playbook.
 - name: remove_workload tasks complete

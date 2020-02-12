@@ -1,5 +1,30 @@
 ---
 
+- name: delete strimzi operator namespaced clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/020-ClusterRole-strimzi-cluster-operator-role.yaml' ) | from_yaml }}"
+
+- name: delete strimzi operator global clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/021-ClusterRole-strimzi-cluster-operator-role.yaml' ) | from_yaml }}"
+
+- name: delete strimzi kafka broker clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/030-ClusterRole-strimzi-kafka-broker.yaml' ) | from_yaml }}"
+
+- name: delete strimzi entity operator clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/031-ClusterRole-strimzi-entity-operator.yaml' ) | from_yaml }}"
+
+- name: delete strimzi topic operator clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/032-ClusterRole-strimzi-topic-operator.yaml' ) | from_yaml }}"
+
 - name: delete kafka crd
   k8s:
     state: absent
