@@ -4,3 +4,8 @@
   k8s:
     state: present
     definition: "{{ lookup('file', role_path ~ '/files/infinispan/infinispan-crd.yml' ) | from_yaml }}"
+
+- name: create Infinispan provisioner clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/infinispan/infinispan-provisioner-clusterrole.yml' ) | from_yaml }}"

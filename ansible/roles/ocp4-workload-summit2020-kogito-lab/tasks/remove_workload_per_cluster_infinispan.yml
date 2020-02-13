@@ -1,5 +1,10 @@
 ---
 
+- name: remove Infinispan provisioner clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/infinispan/infinispan-provisioner-clusterrole.yml' ) | from_yaml }}"
+
 - name: delete Infinispan crd
   k8s:
     state: absent
