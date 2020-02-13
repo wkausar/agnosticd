@@ -1,5 +1,10 @@
 ---
 
+- name: delete kogito provisoner clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/kogito/provisioner/kogito-provisioner-clusterrole.yml' ) | from_yaml }}"   
+
 - name: delete kogito-app crd
   k8s:
     state: absent
