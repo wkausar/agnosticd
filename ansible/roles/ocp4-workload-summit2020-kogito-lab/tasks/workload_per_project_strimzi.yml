@@ -39,3 +39,9 @@
     state: present
     namespace: "{{ _namespace }}"
     definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-operator/050-Deployment-strimzi-cluster-operator.yaml' ) | from_yaml }}"
+
+- name: "give user user{{ user_num }} kafka cluster provisioning rights"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/strimzi/cluster-provisioner/cluster-provisioner-rolebinding.yml' ) | from_yaml }}"

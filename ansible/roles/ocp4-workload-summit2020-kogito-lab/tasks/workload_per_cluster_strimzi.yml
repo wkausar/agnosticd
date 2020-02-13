@@ -59,3 +59,8 @@
   k8s:
     state: present
     definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-operator/032-ClusterRole-strimzi-topic-operator.yaml' ) | from_yaml }}"
+
+- name: create kafka cluster provisioner clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-provisioner/cluster-provisioner-clusterrole.yml' ) | from_yaml }}"

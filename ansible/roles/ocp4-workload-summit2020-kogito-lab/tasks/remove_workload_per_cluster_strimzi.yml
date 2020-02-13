@@ -1,5 +1,10 @@
 ---
 
+- name: delete kafka cluster provisioner clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/strimzi/cluster-provisioner/cluster-provisioner-clusterrole.yml' ) | from_yaml }}"
+
 - name: delete strimzi operator namespaced clusterrole
   k8s:
     state: absent
