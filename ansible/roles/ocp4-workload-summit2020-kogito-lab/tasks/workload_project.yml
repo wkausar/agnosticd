@@ -22,3 +22,6 @@
 
 - name: "Kogito workload for user user{{ user_num }}"
   include_tasks: workload_per_project_kogito.yml
+
+- name: "Infinispan cluster workload for user user{{ user_num }}"
+  include_tasks: workload_per_project_infinispan_cluster.yml

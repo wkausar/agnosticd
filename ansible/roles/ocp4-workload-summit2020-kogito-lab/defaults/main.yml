@@ -16,3 +16,8 @@ infinispan_operator_cpu_limit: 100m
 infinispan_operator_memory_limit: 100M
 infinispan_operator_cpu_request: 50m
 infinispan_operator_memory_request: 50M
+
+infinispan_cluster_name: kogito-infinispan
+infinispan_cluster_replicas: 1
+infinispan_cluster_cpu: 500m
+infinispan_cluster_memory: 512M

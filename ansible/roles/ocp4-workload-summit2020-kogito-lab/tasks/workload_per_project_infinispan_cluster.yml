@@ -1,0 +1,17 @@
+---
+
+- name: "check if Infinispan operator is running"
+  shell: >
+    oc get deployment infinispan-operator -o template --template={{ json_template }} -n {{ _namespace }}
+  vars:
+    json_template: '\{\{.status.readyReplicas\}\}'
+  register: result
+  retries: 30
+  delay: 10
+  until: result.stdout == "1"
+
+- name: "create Infinispan custom resource"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/infinispan-cluster/infinispan-cluster.yml' ) | from_yaml }}"

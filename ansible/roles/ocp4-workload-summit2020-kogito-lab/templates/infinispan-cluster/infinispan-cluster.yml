@@ -1,0 +1,29 @@
+apiVersion: infinispan.org/v1
+kind: Infinispan
+metadata:
+  name: {{ infinispan_cluster_name }}
+spec:
+  container:
+    cpu: '{{ infinispan_cluster_cpu }}'
+    extraJvmOpts: ''
+    memory: '{{ infinispan_cluster_memory }}'
+  expose: {}
+  image: ''
+  logging:
+    categories: null
+  replicas: {{ infinispan_cluster_replicas }}
+  security:
+    endpointEncryption:
+      certSecretName: ''
+      certServiceName: ''
+      type: ''
+    endpointSecretName: ''
+  service:
+    container:
+      storage: ''
+    sites:
+      local:
+        expose: {}
+        name: ''
+      locations: null
+    type: ''

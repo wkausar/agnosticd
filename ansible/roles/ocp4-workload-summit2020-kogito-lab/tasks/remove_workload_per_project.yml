@@ -12,6 +12,9 @@
 - name: "remove Kogito workload for user user{{ user_num }}"
   include_tasks: remove_workload_per_project_kogito.yml
 
+- name: "remove Infinispan cluster workload for user user{{ user_num }}"
+  include_tasks: remove_workload_per_project_infinispan_cluster.yml
+
 - name: delete {{ _namespace }} project
   k8s:
     state: absent
