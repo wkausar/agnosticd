@@ -66,7 +66,7 @@
   when: gitea_pam_project.status == 404
   vars:
     body: '{
-      "clone_addr": "https://github.com/rhte2019-kogito/kogito-travel-agency-tutorial.git",
+      "clone_addr": "https://github.com/RedHat-Consulting-UK/summit-2020-kogito-businessautomation.git",
       "description": "Kogito Travel Agency Tutorial",
       "repo_name": "kogito-travel-agency-tutorial",
       "uid": {{ gitea_insystem_user.json.id | int }}
