@@ -40,3 +40,9 @@
 
 - name: "Kafka cluster workload for user user{{ user_num }}"
   include_tasks: workload_per_project_kafka_cluster.yml
+
+- name: Gitea for {{ _namespace }}
+  include_tasks: workload_per_project_gitea.yml
+
+- name: CoreReadyWorkspaces for {{ _namespace }}
+  include_tasks: workload_per_project_codereadyworkspaces.yml

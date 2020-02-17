@@ -1,0 +1,54 @@
+{
+  "metadata": {
+    "name": "java"
+  },
+  "projects": [
+    {
+      "name": "kogito-travel-agency-tutorial",
+      "source": {
+        "location": "http://mygitea.gitea.svc.cluster.local:3000/{{ _namespace }}/kogito-travel-agency-tutorial",
+        "type": "git"
+      }
+    }
+  ],
+  "components": [
+    {
+      "id": "redhat/java8/latest",
+      "type": "chePlugin"
+    },
+    {
+      "id": "redhat/vscode-apache-camel/latest",
+      "type": "chePlugin"
+    },
+    {
+      "mountSources": true,
+      "endpoints": [
+        {
+          "name": "8080",
+          "port": 8080
+        }
+      ],
+      "memoryLimit": "768Mi",
+      "type": "dockerimage",
+      "volumes": [
+        {
+          "name": "m2",
+          "containerPath": "/home/jboss/.m2"
+        }
+      ],
+      "alias": "maven",
+      "image": "quay.io/redhat-consulting-uk/summit-2020-crw-stack-kogito:latest",
+      "env": [
+        {
+          "value": "-XX:MaxRAMPercentage=50.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xms20m -Djava.security.egd=file:/dev/./urandom -Duser.home=/home/jboss",
+          "name": "JAVA_OPTS"
+        },
+        {
+          "value": "$(JAVA_OPTS)",
+          "name": "MAVEN_OPTS"
+        }
+      ]
+    }
+  ],
+  "apiVersion": "1.0.0"
+}

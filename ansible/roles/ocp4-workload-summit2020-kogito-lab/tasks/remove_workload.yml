@@ -16,6 +16,15 @@
 - name: remove Strimzi per cluster
   include_tasks: remove_workload_per_cluster_strimzi.yml
 
+- name: remove Bucketrepo per cluster
+  include_tasks: remove_workload_per_cluster_bucketrepo.yml
+
+- name: remove CRW per cluster
+  include_tasks: remove_workload_per_cluster_codereadyworkspaces.yml
+
+- name: remove Gitea per cluster
+  include_tasks: remove_workload_per_cluster_gitea.yml
+
 # Leave this as the last task in the playbook.
 - name: remove_workload tasks complete
   debug:

@@ -113,3 +113,11 @@ entity_operator_tlssidecar_liveness_probe_initial_delay_seconds: 20
 entity_operator_tlssidecar_liveness_probe_timeout_seconds: 5
 
 kafka_enable_metrics: true
+
+_retry: 180
+_delay: 10
+
+_crw_csv_version: crwoperator.v2.0.0
+
+_gitea_admin_name: gitadmin
+_account_password: a123456
