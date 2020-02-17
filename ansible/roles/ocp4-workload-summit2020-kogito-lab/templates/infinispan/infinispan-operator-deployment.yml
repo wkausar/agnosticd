@@ -32,4 +32,11 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
-              value: "infinispan-operator"
+              value: 'infinispan-operator'
+          resources:
+            limits:
+              cpu: '{{ infinispan_operator_cpu_limit }}'
+              memory: '{{ infinispan_operator_memory_limit }}'
+            requests:
+              cpu: '{{ infinispan_operator_cpu_request }}'
+              memory: '{{ infinispan_operator_memory_request }}'

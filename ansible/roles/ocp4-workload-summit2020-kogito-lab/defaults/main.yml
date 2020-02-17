@@ -11,3 +11,8 @@ strimzi_operator_resources_cpu_limit: 1000m
 strimzi_operator_resources_memory_limit: 256Mi
 strimzi_operator_resources_cpu_request: 200m
 strimzi_operator_resources_memory_request: 256Mi
+
+infinispan_operator_cpu_limit: 100m
+infinispan_operator_memory_limit: 100M
+infinispan_operator_cpu_request: 50m
+infinispan_operator_memory_request: 50M
