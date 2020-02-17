@@ -17,7 +17,7 @@ spec:
       certSecretName: ''
       certServiceName: ''
       type: ''
-    endpointSecretName: ''
+    endpointSecretName: 'kogito-infinispan-secret'
   service:
     container:
       storage: ''
