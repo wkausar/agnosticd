@@ -1,0 +1,77 @@
+---
+
+- name: create Grafana crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-crd.yml' ) | from_yaml }}"
+
+- name: create Grafana dashboard crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-dashboard-crd.yml' ) | from_yaml }}"
+
+- name: create Grafana datasource crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-datasource-crd.yml' ) | from_yaml }}"
+
+- name: create Grafana clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-clusterrole.yml' ) | from_yaml }}"
+
+- name: create Grafana proxy clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-proxy-clusterrole.yml' ) | from_yaml }}"
+
+- name: create Prometheus crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-crd.yml' ) | from_yaml }}"
+
+- name: create Prometheus alertmanager crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-alertmanager-crd.yml' ) | from_yaml }}"
+
+- name: create Prometheus servicemonitor crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-servicemonitor-crd.yml' ) | from_yaml }}"
+
+- name: create Prometheus rule crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-rule-crd.yml' ) | from_yaml }}"
+
+- name: create Prometheus clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-clusterrole.yml' ) | from_yaml }}"
+
+- name: create Prometheus operator clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-operator-clusterrole.yml' ) | from_yaml }}"
+
+- name: create Prometheus alertmanager clusterrole
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/alertmanager-clusterrole.yml' ) | from_yaml }}"
+
+- name: create blackbox target crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/blackbox-target-crd.yml' ) | from_yaml }}"
+
+- name: create application monitoring crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/application-monitoring-crd.yml' ) | from_yaml }}"
+
+- name: create cluster role with get namespaces privilege
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/get-namespaces-clusterrole.yml' ) | from_yaml }}"
+  

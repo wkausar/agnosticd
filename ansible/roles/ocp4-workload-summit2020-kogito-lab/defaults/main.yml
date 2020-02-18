@@ -117,3 +117,7 @@ entity_operator_tlssidecar_liveness_probe_initial_delay_seconds: 20
 entity_operator_tlssidecar_liveness_probe_timeout_seconds: 5
 
 kafka_enable_metrics: true
+
+monitoring_label_value: kogito
+monitoring_prometheus_retention: 1d
+monitoring_prometheus_storage_request: 1Gi

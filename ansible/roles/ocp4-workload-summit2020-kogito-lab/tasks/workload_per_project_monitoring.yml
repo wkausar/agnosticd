@@ -1,0 +1,62 @@
+---
+
+- name: "create Grafana operator rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/grafana-operator-rolebinding.yml' ) | from_yaml }}"
+
+- name: "create Grafana proxy rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present   
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/grafana-proxy-clusterrolebinding.yml' ) | from_yaml }}"
+
+- name: "create Prometheus operator rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present    
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/prometheus-operator-clusterrolebinding.yml' ) | from_yaml }}"
+
+- name: "create Prometheus application monitoring rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present   
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/prometheus-monitoring-clusterrolebinding.yml' ) | from_yaml }}"
+
+- name: "create Prometheus alertmanager rolebinding for user user{{ user_num }}"
+  k8s:
+    state: present    
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/alertmanager-monitoring-clusterrolebinding.yml' ) | from_yaml }}"
+
+- name: "create application monitoring operator service account for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/application-monitoring-operator-serviceaccount.yml' ) | from_yaml }}"
+
+- name: "create application monitoring operator role for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/application-monitoring-operator-role.yml' ) | from_yaml }}"
+
+- name: "create application monitoring operator role binding for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/application-monitoring-operator-rolebinding.yml' ) | from_yaml }}"
+
+- name: "create application monitoring operator deployment for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/application-monitoring-operator-deployment.yml' ) | from_yaml }}"
+
+- name: "create application monitoring cr for user user{{ user_num }}"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"    
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/application-monitoring-cr.yml' ) | from_yaml }}"
+
+- name: "give user{{ user_num }} get namespaces privilege"
+  k8s:
+    state: present   
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/get-namespaces-clusterrolebinding.yml' ) | from_yaml }}"

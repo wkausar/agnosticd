@@ -1,0 +1,56 @@
+---
+
+- name: delete Grafana crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-crd.yml' ) | from_yaml }}"
+
+- name: delete Grafana dashboard crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-dashboard-crd.yml' ) | from_yaml }}"
+
+- name: delete Grafana datasource crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-datasource-crd.yml' ) | from_yaml }}"
+
+- name: delete Grafana clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-clusterrole.yml' ) | from_yaml }}"
+
+- name: delete Grafana proxy clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/grafana-proxy-clusterrole.yml' ) | from_yaml }}"
+
+- name: delete Prometheus clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-clusterrole.yml' ) | from_yaml }}"
+
+- name: delete Prometheus operator clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/prometheus-operator-clusterrole.yml' ) | from_yaml }}"
+
+- name: delete Prometheus alertmanager clusterrole
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/alertmanager-clusterrole.yml' ) | from_yaml }}"
+
+- name: delete blackbox target crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/blackbox-target-crd.yml' ) | from_yaml }}"
+
+- name: delete application monitoring crd
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/application-monitoring-crd.yml' ) | from_yaml }}"
+
+- name: delete cluster role with get namespaces privilege
+  k8s:
+    state: absent
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/get-namespaces-clusterrole.yml' ) | from_yaml }}"

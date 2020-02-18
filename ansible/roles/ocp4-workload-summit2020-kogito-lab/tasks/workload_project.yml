@@ -28,3 +28,6 @@
 
 - name: "Kafka cluster workload for user user{{ user_num }}"
   include_tasks: workload_per_project_kafka_cluster.yml
+
+- name: "application monitoring workload for user user{{ user_num }}"
+  include_tasks: workload_per_project_monitoring.yml

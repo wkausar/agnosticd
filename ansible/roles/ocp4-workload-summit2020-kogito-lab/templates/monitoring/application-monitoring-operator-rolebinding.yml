@@ -1,0 +1,13 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: application-monitoring-operator
+roleRef:
+  kind: Role
+  name: application-monitoring-operator
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+  - kind: ServiceAccount
+    name: application-monitoring-operator
+    namespace: {{ _namespace }}

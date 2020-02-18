@@ -3,6 +3,9 @@
   set_fact:
     _namespace: "{{ namespace_prefix }}{{ user_num }}"
 
+- name: "remove monitoring workload for user user{{ user_num }}"
+  include_tasks: remove_workload_per_project_monitoring.yml
+
 - name: "remove Infinispan cluster workload for user user{{ user_num }}"
   include_tasks: remove_workload_per_project_infinispan_cluster.yml
 
