@@ -36,3 +36,10 @@ spec:
                   fieldPath: metadata.labels['name']
             - name: DEBUG
               value: "false"
+          resources:
+            limits:
+              cpu: '{{ kogito_operator_cpu_limit }}'
+              memory: '{{ kogito_operator_memory_limit }}'
+            requests:
+              cpu: '{{ kogito_operator_cpu_request }}'
+              memory: '{{ kogito_operator_memory_request }}'
