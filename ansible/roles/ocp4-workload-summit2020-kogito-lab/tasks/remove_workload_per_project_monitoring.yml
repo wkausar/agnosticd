@@ -1,5 +1,9 @@
 ---
 
+- name: "remove monitoring key label from namespace {{ _namespace }}"
+  shell: >
+    oc label namespace {{ _namespace }} monitoring-key- 
+
 - name: "remove get namespaces privilege from user{{ user_num }}"
   k8s:
     state: absent

@@ -60,3 +60,7 @@
   k8s:
     state: present   
     definition: "{{ lookup('template', role_path ~ '/templates/monitoring/get-namespaces-clusterrolebinding.yml' ) | from_yaml }}"
+
+- name: "label namespace {{ _namespace }} with monitoring key"
+  shell: >
+    oc label --overwrite namespace {{ _namespace }} monitoring-key={{ monitoring_label_value }}-user{{ user_num }}  
