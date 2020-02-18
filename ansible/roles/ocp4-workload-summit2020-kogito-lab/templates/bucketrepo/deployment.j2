@@ -74,7 +74,7 @@ items:
         containers:
           - name: bucketrepo
             image: "image-registry.openshift-image-registry.svc:5000/{{ _namespace }}/summit-2020-bucketrepo"
-            imagePullPolicy: IfNotPresent
+            imagePullPolicy: Always
             command: ["/bucketrepo"]
             args:
               - "-config-path=/config"
