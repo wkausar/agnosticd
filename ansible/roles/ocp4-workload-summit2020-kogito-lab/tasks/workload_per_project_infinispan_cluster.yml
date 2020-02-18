@@ -10,6 +10,18 @@
   delay: 10
   until: result.stdout == "1"
 
+- name: "create Infinispan credentials secret"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/infinispan-cluster/infinispan-credentials-secret.yml' ) | from_yaml }}"
+
+- name: "create Infinispan credentials secret for data index service"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/infinispan-cluster/infinispan-credentials.yml' ) | from_yaml }}"
+
 - name: "create Infinispan custom resource"
   k8s:
     state: present
