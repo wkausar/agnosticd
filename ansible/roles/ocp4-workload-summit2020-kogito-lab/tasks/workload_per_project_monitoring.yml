@@ -61,6 +61,18 @@
     state: present   
     definition: "{{ lookup('template', role_path ~ '/templates/monitoring/get-namespaces-clusterrolebinding.yml' ) | from_yaml }}"
 
+- name: "create role with privileges to create servicemonitor and grafanadashboard resources"
+  k8s:
+    state: present
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('file', role_path ~ '/files/monitoring/kogito-monitoring-role.yml' ) | from_yaml }}"    
+
+- name: "give user{{ user_num }} privileges to create servicemonitor and grafanadashboard resources"
+  k8s:
+    state: present   
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/monitoring/kogito-monitoring-rolebinding.yml' ) | from_yaml }}"    
+
 - name: "label namespace {{ _namespace }} with monitoring key"
   shell: >
     oc label --overwrite namespace {{ _namespace }} monitoring-key={{ monitoring_label_value }}-user{{ user_num }}  
