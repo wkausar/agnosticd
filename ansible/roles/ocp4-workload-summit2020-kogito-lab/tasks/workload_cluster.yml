@@ -11,3 +11,12 @@
 
 - name: Monitoring workload for cluster
   include_tasks: workload_per_cluster_monitoring.yml
+
+- name: CodeReady Workspaces for cluster
+  include_tasks: workload_per_cluster_codereadyworkspaces.yml
+
+- name: Bucketrepo for {{ _namespace }}
+  include_tasks: workload_per_cluster_bucketrepo.yml
+
+- name: Gitea for cluster
+  include_tasks: workload_per_cluster_gitea.yml

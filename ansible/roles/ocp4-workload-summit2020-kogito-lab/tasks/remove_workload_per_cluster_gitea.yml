@@ -1,0 +1,28 @@
+---
+- name: set namespace
+  set_fact:
+    _namespace: "gitea"
+
+- name: Delete Gitea deployment
+  k8s:
+    state: absent
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('file', role_path ~ '/files/gitea/server.yml' ) | from_yaml }}"
+
+- name: Delete operator
+  k8s:
+    state: absent
+    namespace: "{{ _namespace }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/gitea/operator.j2' ) | from_yaml }}"
+
+- name: Delete OperatorGroup for the operators
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', role_path ~ '/templates/olm-operatorgroup/single-namespace.j2' ) | from_yaml }}"
+
+- name: Delete namespace for {{ _namespace }}
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace-without-requester.j2' ) | from_yaml }}"
+  vars:
+    _description: "Gitea"
