@@ -59,8 +59,7 @@
 
 - name: "delete Prometheus operator rolebinding for user user{{ user_num }}"
   k8s:
-    state: absent
-    namespace: "{{ _namespace }}"    
+    state: absent   
     definition: "{{ lookup('template', role_path ~ '/templates/monitoring/prometheus-operator-clusterrolebinding.yml' ) | from_yaml }}"
 
 - name: "delete Grafana proxy rolebinding for user user{{ user_num }}"
@@ -70,6 +69,5 @@
 
 - name: "delete Grafana operator rolebinding for user user{{ user_num }}"
   k8s:
-    state: absent
-    namespace: "{{ _namespace }}"    
+    state: absent  
     definition: "{{ lookup('template', role_path ~ '/templates/monitoring/grafana-operator-clusterrolebinding.yml' ) | from_yaml }}"

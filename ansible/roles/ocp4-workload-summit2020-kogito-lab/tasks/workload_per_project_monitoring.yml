@@ -2,8 +2,7 @@
 
 - name: "create Grafana operator clusterrolebinding for user user{{ user_num }}"
   k8s:
-    state: present
-    namespace: "{{ _namespace }}"    
+    state: present    
     definition: "{{ lookup('template', role_path ~ '/templates/monitoring/grafana-operator-clusterrolebinding.yml' ) | from_yaml }}"
 
 - name: "create Grafana proxy clusterrolebinding for user user{{ user_num }}"
