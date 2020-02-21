@@ -97,3 +97,32 @@
   command: >
     oc get deployment/keycloak -o=jsonpath={'.spec.template.spec.containers[0].env[?(@.name=="SSO_ADMIN_PASSWORD")].value'} -n "{{ _namespace }}"
   register: sso_admin_password
+
+- name: Get Keycloak admin token
+  uri:
+    url: "http://{{ keycloak_route.stdout }}/auth/realms/master/protocol/openid-connect/token"
+    method: POST
+    body:
+      username: "{{ sso_admin_username.stdout }}"
+      password: "{{ sso_admin_password.stdout }}"
+      grant_type: "password"
+      client_id: "admin-cli"
+    body_format: form-urlencoded
+    status_code: 200,201,204
+  register: sso_admin_token
+
+- name: Increase codeready access token lifespans
+  uri:
+    url: http://{{ keycloak_route.stdout }}/auth/admin/realms/codeready
+    method: PUT
+    headers:
+      Content-Type: application/json
+      Authorization: "Bearer {{ sso_admin_token.json.access_token }}"
+    body:
+      accessTokenLifespan: 7200
+      accessTokenLifespanForImplicitFlow: 7200
+      actionTokenGeneratedByUserLifespan: 7200
+      ssoSessionIdleTimeout: 7200
+      ssoSessionMaxLifespan: 7200
+    body_format: json
+    status_code: 204
