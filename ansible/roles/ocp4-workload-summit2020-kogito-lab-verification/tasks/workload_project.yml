@@ -1,0 +1,99 @@
+---
+- name: set namespace
+  set_fact:
+    _namespace: "{{ namespace_prefix }}{{ user_num }}"
+
+- name: Check user{{ user_num }} can login
+  command: "oc login --username=user{{ user_num }} --password={{ _user_login_password }} {{ ocwhoami.stdout }} -n {{ _namespace }} --insecure-skip-tls-verify=true --config={{ tmp_dir }}.kube/{{ _namespace }}-config"
+
+- name: Check infinispan-operator is running
+  k8s:
+    namespace: "{{ _namespace }}"
+    name: infinispan-operator
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check kafka-cluster-entity-operator is running
+  k8s:
+    namespace: "{{ _namespace }}"
+    name: kafka-cluster-entity-operator
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check kogito-operator is running
+  k8s:
+    namespace: "{{ _namespace }}"
+    name: kogito-operator
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check strimzi-cluster-operator is running
+  k8s:
+    namespace: "{{ _namespace }}"
+    name: strimzi-cluster-operator
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check Infinispan is running
+  command: "oc rollout status sts/kogito-infinispan --watch=true -n {{ _namespace }} --config={{ tmp_dir }}.kube/{{ _namespace }}-config"
+
+# 'oc rollout status' doesn't work for StatefulSets with OnDelete strategy so use a different approach...
+- name: Get kafka-cluster-kafka StatefulSet info
+  k8s_info:
+    namespace: "{{ _namespace }}"
+    name: kafka-cluster-kafka
+    kind: StatefulSet
+  register: kafka_cluster_kafka_info
+
+- name: Check kafka-cluster-kafka exists
+  fail:
+    msg: "kafka-cluster-kafka is missing"
+  when: resources == []
+  vars:
+    resources: "{{ kafka_cluster_kafka_info | json_query('resources') }}"
+
+- name: Check number of kafka-cluster-kafka replicas
+  fail:
+    msg: "Required replicas for kafka-cluster-kafka are not running"
+  when:  required > current
+  vars:
+    required_query: "resources[?metadata.name=='kafka-cluster-kafka'].status.replicas"
+    current_query: "resources[?metadata.name=='kafka-cluster-kafka'].status.currentReplicas"
+    required: "{{ kafka_cluster_kafka_info | json_query(required_query) }}"
+    current: "{{ kafka_cluster_kafka_info | json_query(current_query) }}"
+
+- name: Get kafka-cluster-zookeeper StatefulSet info
+  k8s_info:
+    namespace: "{{ _namespace }}"
+    name: kafka-cluster-zookeeper
+    kind: StatefulSet
+  register: kafka_cluster_zookeeper_info
+
+- name: Check kafka-cluster-zookeeper exists
+  fail:
+    msg: "kafka-cluster-zookeeper is missing"
+  when: resources == []
+  vars:
+    resources: "{{ kafka_cluster_zookeeper_info | json_query('resources') }}"
+
+- name: Check number of kafka-cluster-zookeeper replicas
+  fail:
+    msg: "Required replicas for kafka-cluster-zookeeper are not running"
+  when:  required > current
+  vars:
+    required_query: "resources[?metadata.name=='kafka-cluster-zookeeper'].status.replicas"
+    current_query: "resources[?metadata.name=='kafka-cluster-zookeeper'].status.currentReplicas"
+    required: "{{ kafka_cluster_zookeeper_info | json_query(required_query) }}"
+    current: "{{ kafka_cluster_zookeeper_info | json_query(current_query) }}"
