@@ -1,0 +1,100 @@
+---
+- name: Check codeready-operator is running
+  k8s:
+    namespace: codeready-workspaces
+    name: codeready-operator
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check codeready is running
+  k8s:
+    namespace: codeready-workspaces
+    name: codeready
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check devfile-registry is running
+  k8s:
+    namespace: codeready-workspaces
+    name: devfile-registry
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check keycloak is running
+  k8s:
+    namespace: codeready-workspaces
+    name: keycloak
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check mavenrepo is running
+  k8s:
+    namespace: codeready-workspaces
+    name: mavenrepo
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check plugin-registry is running
+  k8s:
+    namespace: codeready-workspaces
+    name: plugin-registry
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check postgres is running
+  k8s:
+    namespace: codeready-workspaces
+    name: postgres
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check gitea-operator is running
+  k8s:
+    namespace: gitea
+    name: gitea-operator
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check mygitea is running
+  k8s:
+    namespace: gitea
+    name: mygitea
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
+
+- name: Check postgresql-gitea-server is running
+  k8s:
+    namespace: gitea
+    name: postgresql-gitea-server
+    kind: Deployment
+    wait: 'True'
+    wait_condition:
+      type: Available
+      status: 'True'
