@@ -19,12 +19,12 @@
     headers:
       Authorization: "Bearer {{ sso_admin_token.json.access_token }}"
     body:
-      username: "{{ _namespace }}"
+      username: "user{{ user_num }}"
       enabled: true
       emailVerified: true
-      firstName: "{{ _namespace }}"
+      firstName: "user{{ user_num }}"
       lastName: Developer
-      email: "{{ _namespace }}@workshop.com"
+      email: "user-{{ user_num }}@workshop.com"
       credentials:
         - type: password
           value: "{{ _account_password }}"
@@ -37,7 +37,7 @@
     url: "http://{{ keycloak_route.stdout }}/auth/realms/codeready/protocol/openid-connect/token"
     method: POST
     body:
-      username: "{{ _namespace }}"
+      username: "user{{ user_num }}"
       password: "{{ _account_password }}"
       grant_type: "password"
       client_id: "admin-cli"
@@ -47,7 +47,7 @@
 
 - name: Create Che workspace
   uri:
-    url: "http://{{ che_route.stdout }}/api/workspace/devfile?namespace={{ _namespace }}&attribute=stackName:Red+Hat+Fuse&start-after-create=true"
+    url: "http://{{ che_route.stdout }}/api/workspace/devfile?namespace=user{{ user_num }}&attribute=stackName:Red+Hat+Fuse&start-after-create=true"
     method: POST
     headers:
       Authorization: "Bearer {{ user_token.json.access_token }}"
