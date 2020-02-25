@@ -2,6 +2,67 @@
 
 # Implement your Workload removal tasks here
 
+- name: define ocp project
+  set_fact:
+    ocp_project: "rhsso-{{ guid }}"
+
+- name: collect keycloakrealm resources in namespace
+  k8s_facts:
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakRealm
+    namespace: "{{ ocp_namespace }}"
+  register: keycloakrealm_cr
+
+- debug:
+    var: keycloakrealm_cr
+
+# - name: remove user admin privileges in namespace
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('template', role_path ~ '/templates/namespace-admin-rb.j2' ) | from_yaml }}"
+
+# - name: delete role binding for keycloak provisioner
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('template', role_path ~ '/templates/keycloak-provisioner-rolebinding.j2' ) | from_yaml }}"
+
+# - name: delete keycloak provisioner role
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-provisioner-role.yaml' ) | from_yaml }}"
+
+# - name: delete keycloak operator deployment
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-deployment.yaml' ) | from_yaml }}"
+
+# - name: delete role binding for keycloak operator
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-rolebinding.yaml' ) | from_yaml }}"
+
+# - name: delete role for keycloak operator
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-role.yaml' ) | from_yaml }}"
+
+# - name: delete service account for keycloak operator
+#   k8s:
+#     state: absent
+#     namespace: "{{ ocp_project }}"
+#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-serviceaccount.yaml' ) | from_yaml }}"
+
+# - name: delete project for user
+#   k8s:
+#     state: absent
+#     definition: "{{ lookup('template', role_path ~ '/templates/namespace.j2' ) | from_yaml }}"
+
 # Leave this as the last task in the playbook.
 - name: remove_workload tasks complete
   debug:
