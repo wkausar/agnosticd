@@ -21,5 +21,6 @@ spec:
     annotations:
       openshift.io/requester: {{ ocp_username }}
     labels:
-      workload: ocp4-workload-rhsso-foundations
+      matchLabels:
+        workload: ocp4-workload-rhsso-foundations
 
