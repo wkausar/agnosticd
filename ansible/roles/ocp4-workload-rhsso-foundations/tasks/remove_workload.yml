@@ -10,7 +10,7 @@
   k8s_facts:
     api_version: keycloak.org/v1alpha1
     kind: KeycloakRealm
-    namespace: "{{ ocp_namespace }}"
+    namespace: "{{ ocp_project }}"
   register: keycloakrealm_cr
 
 - debug:
