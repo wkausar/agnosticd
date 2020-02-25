@@ -13,55 +13,125 @@
     namespace: "{{ ocp_project }}"
   register: keycloakrealm_cr
 
-- debug:
-    var: keycloakrealm_cr
+- name: delete keycloakrealm cr in namespace
+  k8s:
+    state: absent
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakRealm
+    namespace: "{{ ocp_project }}"
+    name: "{{ item }}"
+  loop: "{{ keycloakrealm_cr|json_query('resources[*].metadata.name') }}"
 
-# - name: remove user admin privileges in namespace
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('template', role_path ~ '/templates/namespace-admin-rb.j2' ) | from_yaml }}"
+- name: collect keycloakbackup resources in namespace
+  k8s_facts:
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakBackup
+    namespace: "{{ ocp_project }}"
+  register: keycloakbackup_cr
 
-# - name: delete role binding for keycloak provisioner
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('template', role_path ~ '/templates/keycloak-provisioner-rolebinding.j2' ) | from_yaml }}"
+- name: delete keycloakbackup cr in namespace
+  k8s:
+    state: absent
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakBackup
+    namespace: "{{ ocp_project }}"
+    name: "{{ item }}"
+  loop: "{{ keycloakbackup_cr|json_query('resources[*].metadata.name') }}"
 
-# - name: delete keycloak provisioner role
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-provisioner-role.yaml' ) | from_yaml }}"
+- name: collect keycloakclient resources in namespace
+  k8s_facts:
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakClient
+    namespace: "{{ ocp_project }}"
+  register: keycloakclient_cr
 
-# - name: delete keycloak operator deployment
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-deployment.yaml' ) | from_yaml }}"
+- name: delete keycloakclient cr in namespace
+  k8s:
+    state: absent
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakClient
+    namespace: "{{ ocp_project }}"
+    name: "{{ item }}"
+  loop: "{{ keycloakclient_cr|json_query('resources[*].metadata.name') }}"
 
-# - name: delete role binding for keycloak operator
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-rolebinding.yaml' ) | from_yaml }}"
+- name: collect keycloakuser resources in namespace
+  k8s_facts:
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakUser
+    namespace: "{{ ocp_project }}"
+  register: keycloakuser_cr
 
-# - name: delete role for keycloak operator
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-role.yaml' ) | from_yaml }}"
+- name: delete keycloakuser cr in namespace
+  k8s:
+    state: absent
+    api_version: keycloak.org/v1alpha1
+    kind: KeycloakUser
+    namespace: "{{ ocp_project }}"
+    name: "{{ item }}"
+  loop: "{{ keycloakuser_cr|json_query('resources[*].metadata.name') }}"
 
-# - name: delete service account for keycloak operator
-#   k8s:
-#     state: absent
-#     namespace: "{{ ocp_project }}"
-#     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-serviceaccount.yaml' ) | from_yaml }}"
+- name: collect keycloak resources in namespace
+  k8s_facts:
+    api_version: keycloak.org/v1alpha1
+    kind: Keycloak
+    namespace: "{{ ocp_project }}"
+  register: keycloak_cr
 
-# - name: delete project for user
-#   k8s:
-#     state: absent
-#     definition: "{{ lookup('template', role_path ~ '/templates/namespace.j2' ) | from_yaml }}"
+- name: delete keycloak cr in namespace
+  k8s:
+    state: absent
+    api_version: keycloak.org/v1alpha1
+    kind: Keycloak
+    namespace: "{{ ocp_project }}"
+    name: "{{ item }}"
+  loop: "{{ keycloak_cr|json_query('resources[*].metadata.name') }}" 
+
+- name: remove user admin privileges in namespace
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace-admin-rb.j2' ) | from_yaml }}"
+
+- name: delete role binding for keycloak provisioner
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/keycloak-provisioner-rolebinding.j2' ) | from_yaml }}"
+
+- name: delete keycloak provisioner role
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-provisioner-role.yaml' ) | from_yaml }}"
+
+- name: delete keycloak operator deployment
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-deployment.yaml' ) | from_yaml }}"
+
+- name: delete role binding for keycloak operator
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-rolebinding.yaml' ) | from_yaml }}"
+
+- name: delete role for keycloak operator
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-role.yaml' ) | from_yaml }}"
+
+- name: delete service account for keycloak operator
+  k8s:
+    state: absent
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-serviceaccount.yaml' ) | from_yaml }}"
+
+- name: delete project for user
+  k8s:
+    state: absent
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace.j2' ) | from_yaml }}"
 
 # Leave this as the last task in the playbook.
 - name: remove_workload tasks complete
