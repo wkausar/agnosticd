@@ -59,8 +59,18 @@
     namespace: "{{ ocp_project }}"
     definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-deployment.yaml' ) | from_yaml }}"
 
-# TODO: role and clusterrole for user to be able to create rhsso instance from cr
+- name: create keycloak provisioner role
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-provisioner-role.yaml' ) | from_yaml }}"
 
+- name: create role binding for keycloak provisioner
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/keycloak-provisioner-rolebinding.j2' ) | from_yaml }}"
+    
 - name: give user admin privileges in namespace
   k8s:
     state: present

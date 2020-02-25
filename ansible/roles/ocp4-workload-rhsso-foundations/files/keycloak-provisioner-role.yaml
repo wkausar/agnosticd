@@ -1,0 +1,23 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: null
+  name: keycloak-provisioner
+rules:
+- apiGroups:
+  - keycloak.org
+  resources:
+  - keycloaks
+  - keycloakrealms
+  - keycloakclients
+  - keycloakbackups
+  - keycloakusers
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - patch
+  - update
