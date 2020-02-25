@@ -17,3 +17,8 @@ quota_persistentvolumeclaims: 8
 quota_services: 15
 quota_secrets: 50
 quota_requests_storage: 10Gi
+
+keycloak_operator_limits_cpu: 200m
+keycloak_operator_limits_memory: 200Mi
+keycloak_operator_requests_cpu: 100m
+keycloak_operator_requests_memory: 100Mi

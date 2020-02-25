@@ -57,7 +57,7 @@
   k8s:
     state: present
     namespace: "{{ ocp_project }}"
-    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-deployment.yaml' ) | from_yaml }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/keycloak-operator-deployment.j2' ) | from_yaml }}"
 
 - name: create keycloak provisioner role
   k8s:

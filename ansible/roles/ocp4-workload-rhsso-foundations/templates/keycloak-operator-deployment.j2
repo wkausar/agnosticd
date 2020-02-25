@@ -32,3 +32,10 @@ spec:
                   fieldPath: metadata.name
             - name: OPERATOR_NAME
               value: "keycloak-operator"
+          resources:
+            limits:
+              cpu: '{{ keycloak_operator_limits_cpu }}'
+              memory: '{{ keycloak_operator_limits_memory }}'
+            requests:
+              cpu: '{{ keycloak_operator_requests_cpu }}'
+              memory: '{{ keycloak_operator_requests_memory }}'
