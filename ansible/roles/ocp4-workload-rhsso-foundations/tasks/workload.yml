@@ -1,0 +1,73 @@
+---
+# Implement your Workload deployment tasks here
+
+- name: install keycloak crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/crd/keycloak.org_keycloaks_crd.yaml' ) | from_yaml }}"
+
+- name: install keycloakrealm crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/crd/keycloak.org_keycloakrealms_crd.yaml' ) | from_yaml }}"
+
+- name: install keycloakclient crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/crd/keycloak.org_keycloakclients_crd.yaml' ) | from_yaml }}"
+
+- name: install keycloakuser crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/crd/keycloak.org_keycloakusers_crd.yaml' ) | from_yaml }}"
+
+- name: install keycloakbackup crd
+  k8s:
+    state: present
+    definition: "{{ lookup('file', role_path ~ '/files/crd/keycloak.org_keycloakbackups_crd.yaml' ) | from_yaml }}"
+
+- name: define ocp project
+  set_fact:
+    ocp_project: "rhsso-{{ guid }}"
+
+- name: create project for user
+  k8s:
+    state: present
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace.j2' ) | from_yaml }}"
+
+- name: create service account for keycloak operator
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-serviceaccount.yaml' ) | from_yaml }}"
+
+- name: create role for keycloak operator
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-role.yaml' ) | from_yaml }}"
+
+- name: create role binding for keycloak operator
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-rolebinding.yaml' ) | from_yaml }}"
+
+- name: create keycloak operator deployment
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('file', role_path ~ '/files/keycloak-operator-deployment.yaml' ) | from_yaml }}"
+
+# TODO: role and clusterrole for user to be able to create rhsso instance from cr
+
+- name: give user admin privileges in namespace
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace-admin-rb.j2' ) | from_yaml }}"
+
+# Leave this as the last task in the playbook.
+- name: workload tasks complete
+  debug:
+    msg: "Workload Tasks completed successfully."
