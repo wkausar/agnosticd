@@ -1,0 +1,28 @@
+---
+# Implement your Workload deployment tasks here
+
+- name: define ocp project
+  set_fact:
+    ocp_project: "rhsso-{{ guid }}"
+
+- name: create project for user
+  k8s:
+    state: present
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace.j2' ) | from_yaml }}"
+
+- name: create limitrange in namespace
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/limitrange.j2' ) | from_yaml }}"
+
+- name: give user admin privileges in namespace
+  k8s:
+    state: present
+    namespace: "{{ ocp_project }}"
+    definition: "{{ lookup('template', role_path ~ '/templates/namespace-admin-rb.j2' ) | from_yaml }}"
+
+# Leave this as the last task in the playbook.
+- name: workload tasks complete
+  debug:
+    msg: "Workload Tasks completed successfully."
