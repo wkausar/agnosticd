@@ -5,6 +5,8 @@ metadata:
     openshift.io/description: ''
     openshift.io/display-name: ''
     openshift.io/requester: '{{ ocp_username }}'
+  labels:
+    workload: ocp4-workload-rhsso-foundations
   name: '{{ ocp_project }}'
 spec:
   finalizers:
