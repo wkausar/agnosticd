@@ -127,6 +127,8 @@ monitoring_label_value: kogito
 monitoring_prometheus_retention: 1d
 monitoring_prometheus_storage_request: 1Gi
 
+crw_workspace_memory_limit: 2Gi
+
 _retry: 180
 _delay: 10
 
